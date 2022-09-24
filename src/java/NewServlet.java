@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+
+
+import Clases.Compu;
+import Clases.CompuController;
+import Clases.ConexionBaseDeDatos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,11 +18,24 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author GERARD
+ * @author JP
  */
 @WebServlet(urlPatterns = {"/NewServlet"})
 public class NewServlet extends HttpServlet {
-
+    Compu compu;
+    CompuController registroCompu;
+     Compu[] compuRegistrados;
+     StringBuffer objetoRespuesta = new StringBuffer();
+    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,17 +48,46 @@ public class NewServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try ( PrintWriter respuesta = response.getWriter()) {            
+           
+           registroCompu=new CompuController();
+           String control = request.getParameter("control");
+           
+           if(control.toUpperCase().equals("GUARDAR")){
+               compu=new Compu(
+                Integer.parseInt(request.getParameter("codigo")),
+                request.getParameter("marca"),
+                request.getParameter("modelo"),
+                request.getParameter("dimension"),
+                request.getParameter("fecha"));                
+                registroCompu.guardarCompu2(compu);//almacenarlo en BD                 
+           }else if(control.toUpperCase().equals("ELIMINAR")){
+               int codigoEliminar= Integer.parseInt(request.getParameter("codigo_alumno"));
+               registroCompu.eliminarCompu(codigoEliminar);
+           }
+                        
+            
+            registroCompu.guardarCompu(compu);//almacenarlo en el array
+            compuRegistrados= registroCompu.getCompu();// consultar alumnos en el array                       
+                    
+           registroCompu.getCompu2(objetoRespuesta);//consultar alumnos en la BD
+           respuesta.write(objetoRespuesta.toString());             
+            
+           
+            for (int i = 0; i < compuRegistrados.length; i++){
+                   //if(!alumnosRegistrados[i].getCodigo().isEmpty()){
+                    if(compuRegistrados[i].getCodigo()>0){
+                       respuesta.println("<tr><td>" + compuRegistrados[i].getCodigo()+ "</td>");
+                       respuesta.println("<td>" + compuRegistrados[i].getMarca() + "</td>");
+                       respuesta.println("<td>" + compuRegistrados[i].getModelo()+ "</td>");
+                       respuesta.println("<td>" + compuRegistrados[i].getDimension()+ "</td>");
+                       respuesta.println("<td>" + compuRegistrados[i].getFecha()+ "</td>");
+                       respuesta.println("<td>"
+                               + "<button type=\"button\" class=\"btn btn-warning\"></i>Editar</button> "
+                               + "<button type=\"button\" class=\"btn btn-danger\">Eliminar</button>"
+                               + "</td></tr>");
+                    }
+                }
         }
     }
 
