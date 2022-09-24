@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>TIENDA</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+        
+
+
+    </head>
+    <body>
+        
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="http://localhost:8090/tienda/">Menu principal</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+</nav>
+        
+        
+        
+        <div class="d-flex justify-content-around">
+        <div class="p-3 bd-highlight">
+        <h1>Registro de Computadoras</h1>
+        <a href="NewServlet" > Click aqui </a><br><br>
+        <form method="POST" id="form" name="form" action="NewServlet" >
+            <div class="form-group">
+                <label for="exampleInputName">Codigo</label>
+                <input class="form-control" type="text" placeholder="Ingresar codigo" name="codigo" id="codigo" >
+                <input type="hidden" name="control" value="GUARDAR">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputName">Marca</label>
+                <input class="form-control" type="text" placeholder="Ingresar marca" name="marca" id="marca" >
+            </div>
+           
+            <div class="form-group">
+              <label for="exampleInputName">Modelo</label>
+              <input class="form-control" type="text" placeholder="Ingresar modelo" name="modelo" id="modelo"  >
+            </div>
+            
+            <div class="form-group">
+              <label for="exampleInputName">Tamaño pantalla</label>
+              <input type="text" class="form-control" placeholder="Ingresar dimension" name="dimension" id="dimension"  >
+            </div>
+            
+           
+            <div class="form-group">
+              <label for="exampleInputName">Año de fabricacion</label>
+              <input type="text" class="form-control"  placeholder="Ingresar fecha" name="fecha" id="fecha"  >
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" onclick="enviarFormularioOpcion2()" class="btn btn-success">Guardar con JS</button>
+             <button type="button" class="btn btn-danger">Cancelar</button>
+        </form>   
+        </div>
+        
+        
+        
+        
+    </body>
+</html>
